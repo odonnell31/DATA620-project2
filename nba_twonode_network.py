@@ -15,7 +15,7 @@ import pandas as pd
  
 # load data in from csv to pandas dataframe
 nba_data = csv.reader(open("NBA_network.csv"))
-
+#nba_data = pd.read_csv("NBA_network.csv")
 # create network 
 g = net.Graph()
 
@@ -85,3 +85,41 @@ for i in deg_tests:
             num_players = num_players + 1
     print i, num_players
     num_players = 0
+
+# let's look at only the nodes with 60+ degree
+for i in players:
+    if deg(i)<47:
+        playernet.remove_node(i)
+net.draw(playernet, with_labels=True)
+
+deg_list = sorted(playernet.degree, key=lambda x: x[1], reverse=True)
+print "top 10 highest degree:", deg_list[0:9]
+
+# Now, to identify the network of current allstar players
+all_stars = ['James Harden',
+             'Kevin Durant',
+             'Kyrie Irving',
+             'Kawhi Leonard',
+             'LeBron James',
+             'Anthony Davis',
+             'Ben Simmons',
+             'Bradley Beal',
+             'Damian Lillard',
+             'Dwayne Wade',
+             'Karl-Anthony Towns',
+             'Klay Thompson',
+             'LaMarcus Aldridge',
+             'Giannis Antetokounmpo',
+             'Stephen Curry',
+             'Joel Embiid',
+             'Paul George',
+             'Kemba Walker',
+             'Blake Griffin',
+             'DAngelo Russell',
+             'Dirk Nowitzki',
+             'Khris Middleton',
+             'Kyle Lowry',
+             'Nikola Jokic',
+             'Nikola Vucevic',
+             'Victor Oladipo',
+             'Russell Westbrook']
